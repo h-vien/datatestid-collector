@@ -1,0 +1,80 @@
+/* Styles for highlighted elements with data-testid */
+
+.data-testid-highlight {
+  outline: 3px solid #4CAF50 !important;
+  outline-offset: 2px !important;
+  background-color: rgba(76, 175, 80, 0.1) !important;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.3) !important;
+}
+
+/* Only add position relative for label positioning, but preserve existing positioning */
+/* We'll handle this more carefully in JavaScript to avoid breaking modals */
+
+/* Ensure modals, dialogs, and overlays are not affected by our styles */
+/* JavaScript handles not modifying their positioning, so CSS just ensures no interference */
+.data-testid-highlight[role="dialog"],
+.data-testid-highlight[role="alertdialog"],
+.data-testid-highlight[aria-modal="true"] {
+  pointer-events: auto !important;
+}
+
+.data-testid-highlight::before {
+  content: attr(data-testid);
+  position: absolute;
+  top: -25px;
+  left: 0;
+  background-color: #4CAF50;
+  color: white;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-weight: bold;
+  font-family: monospace;
+  white-space: nowrap;
+  z-index: 9999;
+  border-radius: 3px;
+  pointer-events: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Don't show label on modals/dialogs to avoid interference */
+.data-testid-highlight[role="dialog"]::before,
+.data-testid-highlight[role="alertdialog"]::before,
+.data-testid-highlight[aria-modal="true"]::before,
+.data-testid-highlight[class*="modal" i]::before,
+.data-testid-highlight[class*="dialog" i]::before {
+  display: none;
+}
+
+/* Ensure highlighting doesn't break pointer events for interactive elements */
+.data-testid-highlight button,
+.data-testid-highlight a,
+.data-testid-highlight input,
+.data-testid-highlight select,
+.data-testid-highlight textarea {
+  pointer-events: auto !important;
+}
+
+/* Temporary focus outline when clicking an item in popup */
+.data-testid-focus {
+  outline: 3px solid #ff9800 !important;
+  box-shadow: 0 0 0 4px rgba(255, 152, 0, 0.3) !important;
+  animation: data-testid-pulse 1.2s ease-out 1;
+}
+
+@keyframes data-testid-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 152, 0, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 0 12px rgba(255, 152, 0, 0);
+  }
+}
+
+/* Suggest missing data-testid: warning outline + label */
+.data-testid-suggest {
+  outline: 2px dashed #ff9800 !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 2px rgba(255, 152, 0, 0.25) !important;
+  background-color: rgba(255, 152, 0, 0.06) !important;
+}
+

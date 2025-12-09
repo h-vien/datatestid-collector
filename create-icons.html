@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Create Extension Icons</title>
+</head>
+<body>
+  <h2>Icon Generator for Chrome Extension</h2>
+  <p>Open this file in a browser and right-click each canvas to save as PNG</p>
+  
+  <canvas id="icon16" width="16" height="16"></canvas>
+  <label>16x16 (icon16.png)</label><br><br>
+  
+  <canvas id="icon48" width="48" height="48"></canvas>
+  <label>48x48 (icon48.png)</label><br><br>
+  
+  <canvas id="icon128" width="128" height="128"></canvas>
+  <label>128x128 (icon128.png)</label>
+  
+  <script>
+    function drawIcon(canvas, size) {
+      const ctx = canvas.getContext('2d');
+      
+      // Background gradient
+      const gradient = ctx.createLinearGradient(0, 0, size, size);
+      gradient.addColorStop(0, '#667eea');
+      gradient.addColorStop(1, '#764ba2');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, size, size);
+      
+      // Draw a test tube/beaker icon
+      ctx.fillStyle = 'white';
+      ctx.strokeStyle = 'white';
+      ctx.lineWidth = Math.max(1, size / 16);
+      
+      // Test tube shape
+      const centerX = size / 2;
+      const centerY = size / 2;
+      const tubeWidth = size * 0.3;
+      const tubeHeight = size * 0.5;
+      
+      // Tube body
+      ctx.beginPath();
+      ctx.rect(centerX - tubeWidth/2, centerY - tubeHeight/2, tubeWidth, tubeHeight);
+      ctx.fill();
+      
+      // Tube neck
+      const neckWidth = tubeWidth * 0.6;
+      const neckHeight = size * 0.15;
+      ctx.beginPath();
+      ctx.rect(centerX - neckWidth/2, centerY - tubeHeight/2 - neckHeight, neckWidth, neckHeight);
+      ctx.fill();
+      
+      // Label "ID"
+      ctx.fillStyle = '#667eea';
+      ctx.font = `bold ${size * 0.25}px Arial`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('ID', centerX, centerY);
+    }
+    
+    drawIcon(document.getElementById('icon16'), 16);
+    drawIcon(document.getElementById('icon48'), 48);
+    drawIcon(document.getElementById('icon128'), 128);
+  </script>
+</body>
+</html>
+
